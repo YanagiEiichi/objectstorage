@@ -1,0 +1,21 @@
+<script src="../objectstorage.js"></script>
+<script src="bower_components/tester/tester.js"></script>
+<script>
+localStorage.removeItem('test');
+
+objectStorage('test', function(object) {
+  Tester.assert(object && typeof object === 'object', 'object must be found');
+  Tester.assert(JSON.stringify(object) === '{}', 'object must be empty');
+  object['test'] = '1234';
+  return new Promise(function(resolve) {
+    Tester.assert(localStorage.getItem('test') === null, 'localStorage["test"] must be null');
+    resolve();
+    Tester.assert(localStorage.getItem('test') === null, 'localStorage["test"] must be null');
+    setTimeout(function() {
+      Tester.assert(localStorage.getItem('test') === '{"test":"1234"}', 'localStorage["test"] must be {"test":"1234"}');
+      Tester.feedback(true);
+    });
+  });
+});
+</script>
+
