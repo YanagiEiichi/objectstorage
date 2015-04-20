@@ -6,6 +6,7 @@ var objectStorage = function(key, callback) {
     var value = localStorage.getItem(key) || '';
     object = JSON.parse(value);
     if(!object || typeof object !== 'object') throw 0;
+    return object;
   }).then(null, function() {
     // Create a new object on JSON parse error
     return object = {};

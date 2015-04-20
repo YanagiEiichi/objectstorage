@@ -13,7 +13,10 @@ objectStorage('test', function(object) {
     Tester.assert(localStorage.getItem('test') === null, 'localStorage["test"] must be null');
     setTimeout(function() {
       Tester.assert(localStorage.getItem('test') === '{"test":"1234"}', 'localStorage["test"] must be {"test":"1234"}');
-      Tester.feedback(true);
+      objectStorage('test', function(object) {
+        Tester.assert(object.test === '1234', 'object.test must be "1234"');
+        Tester.feedback(true);
+      });
     });
   });
 });
